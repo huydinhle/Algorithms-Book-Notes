@@ -1,4 +1,4 @@
-package main
+package linkedlist
 
 import (
 	"fmt"
@@ -79,11 +79,20 @@ func (list *LinkedList) PrintList() {
 	fmt.Println()
 }
 
-func main() {
-	node := &LinkedList{}
-	node.InsertList(4)
-	node.InsertList(8)
-	node.PrintList()
-	node.DeleteNode(4)
-	node.PrintList()
+// ToSlice will return a slice that represents
+// the Linkedlist. This will support testing to be
+// easier
+func (list *LinkedList) ToSlice() []interface{} {
+	result := []interface{}{}
+	node := list.head
+	for node != nil {
+		result = append(result, node.value)
+		node = node.next
+	}
+	return result
+}
+
+// Size return the size of the LinkedList
+func (list *LinkedList) Size() int {
+	return list.size
 }

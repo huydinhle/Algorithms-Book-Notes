@@ -1,10 +1,24 @@
-package main
+package stack
 
 import (
-	"./linked-list"
+	"github.com/huydinhle/Algorithms-Book-Notes/Data-Structure-And-Algorithms/linkedlist"
 )
 
 // Stack implement LIFO data structure
 type Stack struct {
-	list linked-list.LinkedList
+	list linkedlist.LinkedList
+}
+
+// ToSlice convert the current stack into
+// a slice. This is mainly for testing
+func (stack *Stack) ToSlice() []interface{} {
+	if stack.list.Size() == 0 {
+		return []interface{}{}
+	}
+	return stack.list.ToSlice()
+}
+
+// Push will add an item on top the stack
+func (stack *Stack) Push(element interface{}) {
+	stack.list.InsertList(element)
 }
