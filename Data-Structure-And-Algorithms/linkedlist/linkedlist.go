@@ -45,6 +45,9 @@ func (list *LinkedList) DeleteNode(element interface{}) interface{} {
 		deleted := list.head.value
 		list.head = list.head.next
 		list.size--
+		if list.size == 0 {
+			list.tail = nil
+		}
 		return deleted
 	}
 	result := list.head.SearchPrevElement(element)
@@ -53,6 +56,10 @@ func (list *LinkedList) DeleteNode(element interface{}) interface{} {
 	}
 	fmt.Printf("result = %+v\n", result)
 	deleted := result.next.value
+	// if the deleted node is tail
+	if result.next.next == nil {
+		list.tail = result
+	}
 	result.next = result.next.next
 	list.size--
 	return deleted
@@ -70,12 +77,28 @@ func (node *Element) SearchPrevElement(element interface{}) *Element {
 	return node.next.SearchPrevElement(element)
 }
 
-// InsertList will insert a item into the list
+// InsertList will insert a item into the list at the beginning
 func (list *LinkedList) InsertList(element interface{}) {
 	list.size++
 	node := Element{element, nil}
 	node.next = list.head
 	list.head = &node
+	if list.size == 1 {
+		list.tail = &node
+	}
+}
+
+// InsertListEnd will insert a item into the list at the end
+func (list *LinkedList) InsertListEnd(element interface{}) {
+	node := Element{element, nil}
+	if list.size == 0 {
+		list.head = &node
+		list.tail = &node
+	} else {
+		list.tail.next = &node
+		list.tail = &node
+	}
+	list.size++
 }
 
 // PrintList will print the whole linked list out
@@ -109,5 +132,16 @@ func (list *LinkedList) Size() int {
 
 // GetHeadValue return the head of the linkedlist
 func (list *LinkedList) GetHeadValue() interface{} {
+	if list.head == nil {
+		return nil
+	}
 	return list.head.value
+}
+
+// GetTailValue return the head of the linkedlist
+func (list *LinkedList) GetTailValue() interface{} {
+	if list.tail == nil {
+		return nil
+	}
+	return list.tail.value
 }
