@@ -6,14 +6,14 @@ import (
 
 // Queue type
 type Queue struct {
-	list *linkedlist.LinkedList
+	list linkedlist.LinkedList
 }
 
-func (q Queue) EnQueue(element interface{}) {
+func (q *Queue) EnQueue(element interface{}) {
 	q.list.InsertListEnd(element)
 }
 
-func (q Queue) DeQueue() interface{} {
+func (q *Queue) DeQueue() interface{} {
 	if q.list.Size() == 0 {
 		return nil
 	}
@@ -21,6 +21,6 @@ func (q Queue) DeQueue() interface{} {
 	return element
 }
 
-func (q Queue) GetList() *linkedlist.LinkedList {
-	return q.list
+func (q *Queue) GetList() *linkedlist.LinkedList {
+	return &q.list
 }
