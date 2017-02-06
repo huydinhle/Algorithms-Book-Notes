@@ -22,3 +22,8 @@ func (stack *Stack) ToSlice() []interface{} {
 func (stack *Stack) Push(element interface{}) {
 	stack.list.InsertList(element)
 }
+
+func (stack *Stack) Pop() interface{} {
+	poppedNode := stack.list.DeleteNode(stack.list.GetHeadValue())
+	return poppedNode
+}

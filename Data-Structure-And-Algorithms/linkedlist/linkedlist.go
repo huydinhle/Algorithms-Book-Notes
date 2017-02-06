@@ -8,6 +8,7 @@ import (
 type LinkedList struct {
 	size int
 	head *Element
+	tail *Element
 }
 
 // Element is part of linked list
@@ -36,20 +37,29 @@ func (node *Element) SearchElement(element interface{}) Element {
 }
 
 // DeleteNode search for an element in linked list and delete
-func (list *LinkedList) DeleteNode(element interface{}) {
+func (list *LinkedList) DeleteNode(element interface{}) interface{} {
 	if list.size == 0 {
-		return
+		return nil
+	}
+	if list.head.value == element {
+		deleted := list.head.value
+		list.head = list.head.next
+		list.size--
+		return deleted
 	}
 	result := list.head.SearchPrevElement(element)
 	if result.value == nil {
-		return
+		return nil
 	}
 	fmt.Printf("result = %+v\n", result)
+	deleted := result.next.value
 	result.next = result.next.next
+	list.size--
+	return deleted
 }
 
 // SearchPrevElement search for a previous element of the specify element
-//in linked list
+// in linked list
 func (node *Element) SearchPrevElement(element interface{}) *Element {
 	if node.next.value == element {
 		return node
@@ -95,4 +105,9 @@ func (list *LinkedList) ToSlice() []interface{} {
 // Size return the size of the LinkedList
 func (list *LinkedList) Size() int {
 	return list.size
+}
+
+// GetHeadValue return the head of the linkedlist
+func (list *LinkedList) GetHeadValue() interface{} {
+	return list.head.value
 }
