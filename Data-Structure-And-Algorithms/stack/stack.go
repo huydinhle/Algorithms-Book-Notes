@@ -23,7 +23,16 @@ func (stack *Stack) Push(element interface{}) {
 	stack.list.InsertList(element)
 }
 
+// Pop will pop the item from the top of the list
 func (stack *Stack) Pop() interface{} {
 	poppedNode := stack.list.DeleteNode(stack.list.GetHeadValue())
 	return poppedNode
+}
+
+// IsEmpty let you know if the stack is empty or not
+func (stack *Stack) IsEmpty() bool {
+	if stack.list.Size() == 0 {
+		return true
+	}
+	return false
 }
