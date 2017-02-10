@@ -11,3 +11,17 @@ type TreeNode struct {
 	right *TreeNode
 	value int
 }
+
+// Bst Binary  Search Tree Implementation
+type Bst struct {
+	head *TreeNode
+}
+
+// Insert into the BST
+func (t *Bst) Insert(value int) {
+}
+
+// TraverseAndPrintPretty traverse in-order and print the tree out
+// pretty
+func (t *Bst) TraverseAndPrintPretty() {
+}
