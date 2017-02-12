@@ -23,6 +23,26 @@ type Bst struct {
 
 // Insert into the BST
 func (t *Bst) Insert(key, value int) {
+	node := t.head
+	if t.head == nil {
+		t.head = &TreeNode{nil, nil, key, value}
+		return
+	}
+	for {
+		if key > node.key {
+			if node.right == nil {
+				node.right = &TreeNode{nil, nil, key, value}
+				return
+			}
+			node = node.right
+		} else {
+			if node.left == nil {
+				node.left = &TreeNode{nil, nil, key, value}
+				return
+			}
+			node = node.left
+		}
+	}
 }
 
 // Search will seach for an item with key
@@ -40,11 +60,21 @@ func (t *Bst) Delete(key int) int {
 
 // FindMax returns the value of the max key
 func (t *Bst) FindMax() int {
-
+	return 0
 }
 
 // InOrderRec in-order recursively traversal
 func (t *Bst) InOrderRec() {
+	inorderRecHelper(t.head)
+}
+
+func inorderRecHelper(node *TreeNode) {
+	if node == nil {
+		return
+	}
+	inorderRecHelper(node.left)
+	fmt.Print(node.value, " ")
+	inorderRecHelper(node.right)
 }
 
 // PreOrderRec pre-order recursively traversal
